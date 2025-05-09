@@ -61,7 +61,7 @@ function OrderDisplay() {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('http://localhost:3333/getorders');
+      const response = await fetch('https://lanchangbackend-production.up.railway.app/getorders');
       if (response.ok) {
         const data = await response.json();
         setOrders(data);
@@ -76,7 +76,7 @@ function OrderDisplay() {
 
   const getStatus = async () => {
     try {
-      const res = await fetch('http://localhost:3333/getstatus');
+      const res = await fetch('https://lanchangbackend-production.up.railway.app/getstatus');
       const data = await res.json();
       setStatus(data);
     } catch (error) {

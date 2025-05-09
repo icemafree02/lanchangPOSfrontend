@@ -31,8 +31,7 @@ const Association = () => {
       // Only add date parameters if they exist
       if (startDate) params.append('start_date', startDate);
       if (endDate) params.append('end_date', endDate);
-
-      // Append query string to URL
+      
       const response = await fetch(`http://localhost:3333/association?${params.toString()}`);
       const data = await response.json();
 

@@ -45,7 +45,7 @@ function Table() {
 
     const fetchTablesAndorder = async () => {
         try {
-            const response = await fetch('http://localhost:3333/tableandorder');
+            const response = await fetch('https://lanchangbackend-production.up.railway.app/tableandorder');
             const data = await response.json();
             setTables(data);
         } catch (error) {
@@ -66,7 +66,7 @@ function Table() {
     const handleCreateSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3333/table', {
+            const response = await fetch('https://lanchangbackend-production.up.railway.app/table', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newTable),
@@ -88,7 +88,7 @@ function Table() {
     const handleEditSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:3333/table/${editTable.tables_id}`, {
+            const response = await fetch(`https://lanchangbackend-production.up.railway.app/table/${editTable.tables_id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(editTable),
@@ -111,7 +111,7 @@ function Table() {
 
     const handleDelete = async () => {
         try {
-            await fetch(`http://localhost:3333/table/${tableToDelete.tables_id}`, { method: 'DELETE' });
+            await fetch(`https://lanchangbackend-production.up.railway.app/table/${tableToDelete.tables_id}`, { method: 'DELETE' });
             setConfirmDelete(false);
             setTableToDelete(null);
             fetchTablesAndorder(); // Refresh table list after deleting
@@ -122,7 +122,7 @@ function Table() {
 
     const createOrderForTable = async (tableId) => {
         try {
-            const response = await fetch('http://localhost:3333/orders', {
+            const response = await fetch('https://lanchangbackend-production.up.railway.app/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ tableId }),
