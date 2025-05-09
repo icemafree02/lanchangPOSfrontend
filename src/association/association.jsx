@@ -54,7 +54,6 @@ const Association = () => {
 
   console.log(transactions);
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchAprioriResults();
