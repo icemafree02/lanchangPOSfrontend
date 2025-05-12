@@ -2,7 +2,7 @@ import React from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 
 const QRCodeGenerator = ({ tablenumber }) => {
-  const url = `http://localhost:3001/${tablenumber}/menu_order`;
+  const url = `https://lanchan-restaurant-frontend.vercel.app/${tablenumber}/menu_order`;
 
   return (
     <div style={{ textAlign: 'center', margin: '10px' }}>

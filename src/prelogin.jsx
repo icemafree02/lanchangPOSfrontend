@@ -38,7 +38,7 @@ export default function SignInSide() {
       Password: data.get('Password')
     };
 
-    fetch('http://localhost:3333/login', {
+    fetch('https://lanchangbackend-production.up.railway.app/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
