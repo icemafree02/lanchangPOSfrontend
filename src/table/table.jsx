@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import QRCodeGenerator from './QRcode';
 import { Navbarow } from '../owner/Navbarowcomponent/navbarow/index-ow';
 import {
     Button,
@@ -45,7 +46,7 @@ function Table() {
 
     const fetchTablesAndorder = async () => {
         try {
-            const response = await fetch('https://lanchangbackend-production.up.railway.app/tableandorder');
+            const response = await fetch('http://localhost:3333/tableandorder');
             const data = await response.json();
             setTables(data);
         } catch (error) {
@@ -66,7 +67,7 @@ function Table() {
     const handleCreateSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://lanchangbackend-production.up.railway.app/table', {
+            const response = await fetch('http://localhost:3333/table', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newTable),
@@ -88,7 +89,7 @@ function Table() {
     const handleEditSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`https://lanchangbackend-production.up.railway.app/table/${editTable.tables_id}`, {
+            const response = await fetch(`http://localhost:3333/table/${editTable.tables_id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(editTable),
@@ -111,7 +112,7 @@ function Table() {
 
     const handleDelete = async () => {
         try {
-            await fetch(`https://lanchangbackend-production.up.railway.app/table/${tableToDelete.tables_id}`, { method: 'DELETE' });
+            await fetch(`http://localhost:3333/table/${tableToDelete.tables_id}`, { method: 'DELETE' });
             setConfirmDelete(false);
             setTableToDelete(null);
             fetchTablesAndorder(); // Refresh table list after deleting
@@ -122,7 +123,7 @@ function Table() {
 
     const createOrderForTable = async (tableId) => {
         try {
-            const response = await fetch('https://lanchangbackend-production.up.railway.app/orders', {
+            const response = await fetch('http://localhost:3333/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ tableId }),
@@ -189,6 +190,7 @@ function Table() {
                                         >
                                             <MenuItem value="1">ว่าง</MenuItem>
                                             <MenuItem value="2">ไม่ว่าง</MenuItem>
+                                            <MenuItem value="0">กำลังเก็บโต๊ะ</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Grid>
@@ -233,6 +235,7 @@ function Table() {
                                             >
                                                 <MenuItem value="1">ว่าง</MenuItem>
                                                 <MenuItem value="2">ไม่ว่าง</MenuItem>
+                                                <MenuItem value="0">กำลังเก็บโต๊ะ</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -253,6 +256,7 @@ function Table() {
                                     <TableCell align="center">เลขโต๊ะ</TableCell>
                                     <TableCell align="center">สถานะ</TableCell>
                                     <TableCell align="center">ออเดอร์ล่าสุด</TableCell>
+                                    <TableCell align="center">QR Code</TableCell>
                                     <TableCell align="center">การจัดการ</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -261,10 +265,13 @@ function Table() {
                                     <TableRow key={table.tables_id}>
                                         <TableCell align="center">{table.tables_number}</TableCell>
                                         <TableCell align="center">
-                                            {table.status_id === 1 ? "ว่าง" : table.status_id === 2 ? "ไม่ว่าง" : ""}
+                                            {table.status_id === 1 ? "ว่าง" : table.status_id === 2 ? "ไม่ว่าง" : table.status_id === 0 ? "กำลังเก็บโต๊ะ" : "" }
                                         </TableCell>
                                         <TableCell align="center">
                                             {table.latest_order_id ? `Order #${table.latest_order_id}` : 'ไม่มีออเดอร์'}
+                                        </TableCell>
+                                        <TableCell item key={table.tables_id}>
+                                            <QRCodeGenerator tablenumber={table.tables_number} />
                                         </TableCell>
                                         <TableCell align="center">
                                             <IconButton onClick={() => handleEdit(table)}>
