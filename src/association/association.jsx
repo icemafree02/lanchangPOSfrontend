@@ -8,31 +8,26 @@ const Association = () => {
   const [results, setResults] = useState(null);
   const [transactions, setTransactions] = useState([]);
 
-  // Filter parameters
   const [minSupport, setMinSupport] = useState(0.2);
   const [minConfidence, setMinConfidence] = useState(0.5);
   const [minLift, setMinLift] = useState(1);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-
-  // Main function to fetch apriori results
   const fetchAprioriResults = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      // Create URLSearchParams object for query parameters
       const params = new URLSearchParams({
         min_support: minSupport,
         min_confidence: minConfidence,
         min_lift: minLift,
       });
 
-      // Only add date parameters if they exist
       if (startDate) params.append('start_date', startDate);
       if (endDate) params.append('end_date', endDate);
       
-      const response = await fetch(`https://lanchangbackend-production.up.railway.app/association?${params.toString()}`);
+      const response = await fetch(`http://localhost:3333/association?${params.toString()}`);
       const data = await response.json();
 
       if (data.success) {

@@ -154,12 +154,11 @@ function Table() {
     };
 
     return (
-        <div>
+        <div style={{ height: '100vh', overflowY: 'auto' }}>
             <Navbarow />
             <Container
                 maxWidth="md" sx={{ mt: 4, mb: 4 }}
             >
-
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Typography variant="h4" gutterBottom>
                         บริหารจัดการโต๊ะ
@@ -249,15 +248,15 @@ function Table() {
                         </Paper>
                     )}
 
-                    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+                    <Paper sx={{ width: '100%', overflow: 'auto' }}>
                         <MuiTable>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align="center">เลขโต๊ะ</TableCell>
-                                    <TableCell align="center">สถานะ</TableCell>
-                                    <TableCell align="center">ออเดอร์ล่าสุด</TableCell>
-                                    <TableCell align="center">QR Code</TableCell>
-                                    <TableCell align="center">การจัดการ</TableCell>
+                            <TableHead >
+                                <TableRow >
+                                    <TableCell align="center" sx={{ fontSize: { xs: '13px', sm: '12px', md: '14px' } }} >เลขโต๊ะ</TableCell>
+                                    <TableCell align="center" sx={{ fontSize: { xs: '13px', sm: '12px', md: '14px' } }}>สถานะ</TableCell>
+                                    <TableCell align="center" sx={{ fontSize: { xs: '13px', sm: '12px', md: '14px' } }}>ออเดอร์ล่าสุด</TableCell>
+                                    <TableCell align="center" sx={{ fontSize: { xs: '13px', sm: '12px', md: '14px' } }}>QR Code</TableCell>
+                                    <TableCell align="center" sx={{ fontSize: { xs: '13px', sm: '12px', md: '14px' } }}>การจัดการ</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -265,7 +264,7 @@ function Table() {
                                     <TableRow key={table.tables_id}>
                                         <TableCell align="center">{table.tables_number}</TableCell>
                                         <TableCell align="center">
-                                            {table.status_id === 1 ? "ว่าง" : table.status_id === 2 ? "ไม่ว่าง" : table.status_id === 0 ? "กำลังเก็บโต๊ะ" : "" }
+                                            {table.status_id === 1 ? "ว่าง" : table.status_id === 2 ? "ไม่ว่าง" : table.status_id === 0 ? "กำลังเก็บโต๊ะ" : ""}
                                         </TableCell>
                                         <TableCell align="center">
                                             {table.latest_order_id ? `Order #${table.latest_order_id}` : 'ไม่มีออเดอร์'}
@@ -284,7 +283,7 @@ function Table() {
                                                 variant="outlined"
                                                 size="small"
                                                 onClick={() => createOrderForTable(table.tables_id)}
-                                                sx={{ ml: 1 }}
+                                                sx={{ fontSize: { xs: '13px', sm: '12px', md: '14px' }}}
                                             >
                                                 สร้างออเดอร์ใหม่
                                             </Button>
