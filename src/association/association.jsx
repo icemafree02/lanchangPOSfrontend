@@ -13,6 +13,7 @@ const Association = () => {
   const [minLift, setMinLift] = useState(1);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  
   const fetchAprioriResults = async () => {
     try {
       setLoading(true);
@@ -27,7 +28,7 @@ const Association = () => {
       if (startDate) params.append('start_date', startDate);
       if (endDate) params.append('end_date', endDate);
       
-      const response = await fetch(`http://localhost:3333/association?${params.toString()}`);
+      const response = await fetch(`https://lanchangbackend-production.up.railway.app/association?${params.toString()}`);
       const data = await response.json();
 
       if (data.success) {
